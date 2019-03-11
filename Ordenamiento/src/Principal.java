@@ -12,14 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 public class Principal extends JFrame {
     
-
+    
+        
         JPanel panel;
     
-    
+ 
     // Etiquetas que indican que informacion debe ser ingresada en cada espacio de texto. 
         JLabel nombreEti;
         JLabel paisEti;
@@ -49,10 +51,21 @@ public class Principal extends JFrame {
     public Principal (){
         //Dentro de este constructor se van a crear los elementos del GUI    
 
+        
+        JTabbedPane pestanas = new JTabbedPane();
+        add(pestanas);
+    
+        
         JPanel panel = new JPanel();
         panel.setBackground(new Color(208,171,171));
 
 
+        GridBagLayout esquema = new GridBagLayout();
+        esquema.getLayoutOrigin();
+        restricciones = new GridBagConstraints();
+	panel.setLayout(esquema);
+        
+        
         nombreEti = new JLabel( "Nombre");
         nombreEti.setFont(new Font("Arial",Font.BOLD, 12));
         nombreEti.setForeground(new Color(77,66,74));
@@ -73,11 +86,11 @@ public class Principal extends JFrame {
         nombreTex = new JTextField (10);
         nombreTex.setBackground(Color.white);
 
-        paisTex  = new JTextField ();
+        paisTex  = new JTextField (10);
         paisTex.setBackground(Color.white);
-        edadTex  = new JTextField ();
+        edadTex  = new JTextField (10);
         edadTex.setBackground(Color.white);
-        puntajeTex  = new JTextField ();    
+        puntajeTex  = new JTextField (10);    
         puntajeTex.setBackground(Color.white);
 
         agregarBot  = new JButton ("Agregar");
@@ -123,29 +136,35 @@ public class Principal extends JFrame {
         
         
         
-        agregarComponente(  0, 1, 1, 1 );
+        agregarComponente(  0, 0, 1, 1 );
         panel.add(nombreEti, restricciones);
-        agregarComponente( 0 , 2, 1, 1 );
+        agregarComponente( 1 , 0, 1, 1 );
         panel.add(nombreTex, restricciones);
-        agregarComponente(  2, 1, 1, 1 );
+        agregarComponente(  0, 1, 1, 1 );
         panel.add(paisEti, restricciones);
-        agregarComponente(  2, 2, 1, 1  );
+        agregarComponente(  1, 1, 1, 1  );
         panel.add(paisTex, restricciones);
-        agregarComponente(  4, 1, 1, 1  );
+        agregarComponente(  0, 2, 1, 1  );
         panel.add(edadEti, restricciones);
-        agregarComponente(  4, 2, 1, 1 );
+        agregarComponente(  1, 2, 1, 1 );
         panel.add(edadTex, restricciones);
-        agregarComponente(  4, 2, 1, 1 );
+        agregarComponente(  0, 3, 1, 1 );
         panel.add(puntajeEti, restricciones);
-        agregarComponente(  4, 1, 1, 1  );
+        agregarComponente(  1, 3, 1, 1  );
         panel.add(puntajeTex, restricciones);
-        agregarComponente(  4, 2, 1, 1 );
+        agregarComponente(  2, 1, 1, 1 );
         panel.add(agregarBot, restricciones); 
-        agregarComponente(  4, 2, 1, 1 );
+        agregarComponente(  3, 1, 1, 1 );
         panel.add(shellsortBot, restricciones);
-        agregarComponente(  4, 1, 1, 1  );
+        agregarComponente(  3, 2, 1, 1  );
         panel.add(quicksortBot, restricciones);
- 
+       
+        
+
+        pestanas.addTab("Lista Tenistas", panel);
+        
+        
+        
     }
     
     
@@ -153,7 +172,7 @@ public class Principal extends JFrame {
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	inter.setSize(700,500);
+	inter.setSize(1000,1000);
 	inter.setVisible(true);	
     }
     
