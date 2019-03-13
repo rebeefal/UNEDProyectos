@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -19,6 +20,10 @@ public class Principal extends JFrame {
     
     
         
+         int edad, puntaje;
+         String nombre, pais;
+    
+    
         JPanel panel;
     
  
@@ -105,10 +110,32 @@ public class Principal extends JFrame {
         quicksortBot.setPreferredSize(new Dimension(90, 30));
 	quicksortBot.setBackground(new Color(170,175,182));
         
+        CreadorDeArreglo creadordearreglo  = new CreadorDeArreglo();
+        
+        
         agregarBot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
             
+                
+                try {
+                    
+                    nombre = nombreTex.getText();
+                    pais = paisTex.getText();
+                    edad = Integer.parseInt(edadTex.getText());
+                    puntaje = Integer.parseInt(puntajeTex.getText());
+                    
+                    
+                    creadordearreglo.crearArreglo(nombre, pais, edad, puntaje);
+                    
+                    JOptionPane.showMessageDialog(null, "Se agregaron los valores exitosamente");
+                                  
+                    
+                }catch(NumberFormatException numberFormatException ){
+                
+                    JOptionPane.showMessageDialog(null, "El valor ingresado no es válido");
+                    
+                }
   
                 
             }
@@ -162,7 +189,6 @@ public class Principal extends JFrame {
         
 
         pestanas.addTab("Lista Tenistas", panel);
-        
         
         
     }
