@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,6 +54,9 @@ public class Principal extends JFrame {
         private GridBagConstraints restricciones;
         
         
+        // Variables para crear el arreglo de tenistas
+        Tenista arreglodetenista[] = new Tenista[20];
+        int i = 0;
     
     public Principal (){
         //Dentro de este constructor se van a crear los elementos del GUI    
@@ -110,9 +115,9 @@ public class Principal extends JFrame {
         quicksortBot.setPreferredSize(new Dimension(90, 30));
 	quicksortBot.setBackground(new Color(170,175,182));
         
-        CreadorDeArreglo creadordearreglo  = new CreadorDeArreglo();
         
         
+     
         agregarBot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
@@ -123,11 +128,12 @@ public class Principal extends JFrame {
                     nombre = nombreTex.getText();
                     pais = paisTex.getText();
                     edad = Integer.parseInt(edadTex.getText());
-                    puntaje = Integer.parseInt(puntajeTex.getText());
-                    
-                    
-                    creadordearreglo.crearArreglo(nombre, pais, edad, puntaje);
-                    
+                    puntaje = Integer.parseInt(puntajeTex.getText());                    
+                                
+                    Tenista tenista = new Tenista(nombre, pais, edad, puntaje);
+                   
+                  arreglodetenista[i++] = tenista;
+                                
                     JOptionPane.showMessageDialog(null, "Se agregaron los valores exitosamente");
                                   
                     
@@ -147,7 +153,10 @@ public class Principal extends JFrame {
     
             public void actionPerformed (ActionEvent arg0){
             
-  
+                  
+                
+                JOptionPane.showMessageDialog(null, "La lista hasta ahora es   " + arreglodetenista[1] );
+                
                 
             }
     
