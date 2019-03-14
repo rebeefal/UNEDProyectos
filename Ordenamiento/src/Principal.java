@@ -10,6 +10,7 @@ import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,9 +22,8 @@ import javax.swing.JTextField;
 
 public class Principal extends JFrame {
     
-    
-        
-         int edad, puntaje;
+          
+         int edad, puntaje, x;
          String nombre, pais;
     
     
@@ -57,6 +57,9 @@ public class Principal extends JFrame {
         private GridBagLayout esquema;
         private GridBagConstraints restricciones;
         
+        int i=0;
+        
+        Tenista[] arrayTenista = new Tenista[4];
 
     
     public Principal (){
@@ -122,11 +125,16 @@ public class Principal extends JFrame {
         listaOriginal = new JTextArea();
         listaOriginal.setSize(30, 30);
         
-        Tenista tenista = new Tenista();
+      
+       
+  
+        
         agregarBot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
                         
+               
+             do{                  
                 try {
                     
                     nombre = nombreTex.getText();
@@ -134,16 +142,35 @@ public class Principal extends JFrame {
                     edad = Integer.parseInt(edadTex.getText());
                     puntaje = Integer.parseInt(puntajeTex.getText());     
                     
-                                              
-                   // arreglodetenista[i++] = new Tenista(nombre, pais, edad, puntaje);
-                    tenista.agregaTenista(nombre, pais, edad, puntaje);
+                       
+                    arrayTenista[i++] = new Tenista(nombre, pais, edad, puntaje);
                     
+                    
+                    
+                                        
+                   // arreglodetenista[i++] = new Tenista(nombre, pais, edad, puntaje);
+                    //tenista.agregaTenista(nombre, pais, edad, puntaje);
+                    
+                    
+                    
+                    
+                x=2;
                                                    
                 }catch(NumberFormatException numberFormatException ){
                 
                     JOptionPane.showMessageDialog(null, 
                             "El valor ingresado no es válido");                    
-                }               
+                }catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException ){
+                
+                    JOptionPane.showMessageDialog(null, 
+                            "El límite de tenistas se ha alcanzado");                    
+                }  
+                              
+            }while (x==1);
+                
+                
+                
+                
             }   
         });
         
@@ -152,8 +179,8 @@ public class Principal extends JFrame {
     
             public void actionPerformed (ActionEvent arg0){
                 
-                tenista.leeListaTenista();              
-                listaOriginal.setText(tenista.getListaOriginal());
+                //tenista.leeListaTenista();              
+                //listaOriginal.setText(tenista.getListaOriginal());
          }
         });
         
@@ -161,8 +188,16 @@ public class Principal extends JFrame {
     
             public void actionPerformed (ActionEvent arg0){
                 
-                tenista.leeListaTenista();              
-                listaOriginal.setText(tenista.getListaOriginal());
+                
+             // for (int j = 0; j < 4; j++){
+               // arrayTenista[j].imprimeArrayTenistas(arrayTenista);
+              //}  
+              
+             Arrays.sort(arrayTenista);
+              
+              
+            arrayTenista[0].imprimeArrayTenistas(arrayTenista);
+                
          }
         });
         
@@ -213,12 +248,52 @@ public class Principal extends JFrame {
     }
     
     
+    static class Tenista implements Comparable<Tenista> {
+        
+        public int edad, puntaje, tamano;
+        public String nombre, pais; 
+    
+
+        public Tenista(){};
+
+        public Tenista(String nombre, String pais, int edad, int puntaje){
+            this.nombre = nombre;
+            this.pais = pais;
+            this.edad = edad;
+            this.puntaje = puntaje;
+        }
+        
+        @Override
+         public int compareTo(Tenista o){
+        if (edad < o.edad){
+            return -1;
+        }
+        if (edad > o.edad){
+            return 1;
+        }
+        return 0; 
+        }
+        
+        
+        static void imprimeArrayTenistas(Tenista[] array) {
+            for (int j = 0; j < array.length; j++) {
+                System.out.println((j+1) + " Nombre " + array[j].nombre + " - Pais: " + array[j].pais + " - Edad: " + array[j].edad + " - Puntaje: " + array[j].puntaje);
+            }
+        }
+        
+        
+    
+    }
+    
   
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	inter.setSize(1000,1000);
-	inter.setVisible(true);	
+	inter.setVisible(true);
+        
+        
+        
     }
     
     
@@ -231,10 +306,15 @@ public class Principal extends JFrame {
          restricciones.gridheight = altura; // establece gridheight
          }
 	  
-     @Override
+    
+    @Override
     public String toString(){
         return nombre+ " , " + pais+ " , "+ edad+ " , "+ puntaje;  
     }
+    
+    
+    
+    
    
 }
 
