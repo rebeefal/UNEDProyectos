@@ -14,11 +14,15 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 public class Principal extends JFrame {
     
@@ -47,19 +51,42 @@ public class Principal extends JFrame {
 
         // Estos botones se utilizan para elegir el algoritmo de ordenamiento que va a ser utilizado
         JButton listaOriginalBot;
-        JButton shellsortBot;
-        JButton quicksortBot;
+        JButton opcion1Bot;
+        JButton opcion2Bot;
+        JButton opcion3Bot;
         
         
+        JList algoritmoLista;
+        JLabel algoritmoListaEtiqueta;        
+        JLabel opcionesOrdenamiento; 
+        
+        
+        JTable tenistasTabla;
+        String[] nombreColumnas = {"Nombre",
+                        "Pais",
+                        "Edad",
+                        "Puntaje"};
+      
+        String[] data; 
+        
+        
+         
         JTextArea listaOriginal;
         
-        
+     
         private GridBagLayout esquema;
         private GridBagConstraints restricciones;
+     
         
-        int i=0;
+        //Tenista tenistas = new Tenista();
         
-        Tenista[] arrayTenista = new Tenista[4];
+        
+        
+        
+        
+        
+        
+        
 
     
     public Principal (){
@@ -114,26 +141,60 @@ public class Principal extends JFrame {
         listaOriginalBot.setPreferredSize(new Dimension(90, 30));
 	listaOriginalBot.setBackground(new Color(170,175,182));
             
-        shellsortBot  = new JButton ("Shellsort");
-        shellsortBot.setPreferredSize(new Dimension(90, 30));
-	shellsortBot.setBackground(new Color(170,175,182));
+        opcion1Bot  = new JButton ("Opcion 1");
+        opcion1Bot.setPreferredSize(new Dimension(90, 30));
+	opcion1Bot.setBackground(new Color(170,175,182));
         
-        quicksortBot  = new JButton ("Quicksort");  
-        quicksortBot.setPreferredSize(new Dimension(90, 30));
-	quicksortBot.setBackground(new Color(170,175,182));
+        opcion2Bot  = new JButton ("Opcion 2");  
+        opcion2Bot.setPreferredSize(new Dimension(90, 30));
+	opcion2Bot.setBackground(new Color(170,175,182));
                 
+        opcion3Bot  = new JButton ("Opcion 3");  
+        opcion3Bot.setPreferredSize(new Dimension(90, 30));
+	opcion3Bot.setBackground(new Color(170,175,182));
+        
+        
         listaOriginal = new JTextArea();
         listaOriginal.setSize(30, 30);
         
-      
-       
-  
         
+        String algoritmoOrdenamiento[] = {"Shellsort", "Quicksort"};
+        algoritmoLista = new JList(algoritmoOrdenamiento);
+        algoritmoLista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        algoritmoLista.setVisibleRowCount(3);
+
+        algoritmoLista.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoLista.setForeground(new Color(77,66,74));
+        algoritmoLista.setBackground(new Color(170,175,182));
+
+        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+        
+        
+        opcionesOrdenamiento = new JLabel(" Opcion 1. Mostrar tenistas ordenados en forma descendente según puntaje \n "
+                + "Opcion 2. Mostrar tenistas ordenados en forma ascendente según edad. \n"
+                + "Opcion 3. Mostrar tenistas ordenados alfabéticamente en forma ascendente según su país.");
+ 
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+        
+        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+        
+        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+        
+        
+        ArrayList<Tenista> listaTenistas = new ArrayList<Tenista>();
+        
+ 
         agregarBot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
-                        
-               
+       
              do{                  
                 try {
                     
@@ -141,19 +202,21 @@ public class Principal extends JFrame {
                     pais = paisTex.getText();
                     edad = Integer.parseInt(edadTex.getText());
                     puntaje = Integer.parseInt(puntajeTex.getText());     
+                      
+                    //arrayTenista[i++] = new Tenista(nombre, pais, edad, puntaje);
                     
-                       
-                    arrayTenista[i++] = new Tenista(nombre, pais, edad, puntaje);
+
+                    //crea un obeto de tipo tenista cada vez que preciona el boton agregar
+                    Tenista tenista = new Tenista(nombre, pais, edad, puntaje);    
                     
+                    //El tenista que se ha agregado se coloca en la lista ArrayList, como se ha definido fuera del ActionListener debe de recordar los elementos agregados anteriormente
+                    listaTenistas.add(tenista);
+                 
                     
+                   
+                   // tenistasTabla = new JTable(listaTenistas, nombreColumnas);
                     
-                                        
-                   // arreglodetenista[i++] = new Tenista(nombre, pais, edad, puntaje);
-                    //tenista.agregaTenista(nombre, pais, edad, puntaje);
-                    
-                    
-                    
-                    
+               
                 x=2;
                                                    
                 }catch(NumberFormatException numberFormatException ){
@@ -166,11 +229,7 @@ public class Principal extends JFrame {
                             "El límite de tenistas se ha alcanzado");                    
                 }  
                               
-            }while (x==1);
-                
-                
-                
-                
+            }while (x==1);                          
             }   
         });
         
@@ -179,41 +238,11 @@ public class Principal extends JFrame {
     
             public void actionPerformed (ActionEvent arg0){
                 
-                //tenista.leeListaTenista();              
-                //listaOriginal.setText(tenista.getListaOriginal());
+               // listaTenistasTabla = new JTable (arregloTenistas, nombreColumnas);
          }
         });
         
-        shellsortBot.addActionListener(new ActionListener(){
-    
-            public void actionPerformed (ActionEvent arg0){
-                
-                
-             // for (int j = 0; j < 4; j++){
-               // arrayTenista[j].imprimeArrayTenistas(arrayTenista);
-              //}  
-              
-             Arrays.sort(arrayTenista);
-              
-              
-            arrayTenista[0].imprimeArrayTenistas(arrayTenista);
-                
-         }
-        });
-        
-        
-        quicksortBot.addActionListener(new ActionListener(){
-    
-            public void actionPerformed (ActionEvent arg0){
-               
-            
-                         
-            }
-    
-        });
-        
-        
-        
+          
         agregarComponente(  0, 0, 1, 1 );
         panel.add(nombreEti, restricciones);
         agregarComponente( 1 , 0, 1, 1 );
@@ -230,70 +259,36 @@ public class Principal extends JFrame {
         panel.add(puntajeEti, restricciones);
         agregarComponente(  1, 3, 1, 1  );
         panel.add(puntajeTex, restricciones);
-        agregarComponente(  2, 1, 1, 1 );
+        agregarComponente(  0, 4, 1, 1 );
         panel.add(agregarBot, restricciones); 
-        agregarComponente(  3, 1, 1, 1 );
-        panel.add(listaOriginalBot, restricciones);
-        agregarComponente(  3, 2, 1, 1 );
-        panel.add(shellsortBot, restricciones);
-        agregarComponente(  3, 3, 1, 1  );
-        panel.add(quicksortBot, restricciones);
-       agregarComponente(  4, 2, 1, 1  );
-        panel.add(listaOriginal, restricciones);
-        
-
-        pestanas.addTab("Lista Tenistas", panel);
-        
-        
-    }
-    
-    
-    static class Tenista implements Comparable<Tenista> {
-        
-        public int edad, puntaje, tamano;
-        public String nombre, pais; 
-    
-
-        public Tenista(){};
-
-        public Tenista(String nombre, String pais, int edad, int puntaje){
-            this.nombre = nombre;
-            this.pais = pais;
-            this.edad = edad;
-            this.puntaje = puntaje;
-        }
-        
-        @Override
-         public int compareTo(Tenista o){
-        if (edad < o.edad){
-            return -1;
-        }
-        if (edad > o.edad){
-            return 1;
-        }
-        return 0; 
-        }
-        
-        
-        static void imprimeArrayTenistas(Tenista[] array) {
-            for (int j = 0; j < array.length; j++) {
-                System.out.println((j+1) + " Nombre " + array[j].nombre + " - Pais: " + array[j].pais + " - Edad: " + array[j].edad + " - Puntaje: " + array[j].puntaje);
-            }
-        }
-        
-        
-    
-    }
-    
+        agregarComponente(  3, 0, 1, 1  );
+        panel.add(algoritmoListaEtiqueta, restricciones);
+        agregarComponente(  4, 0, 1, 1  );
+        panel.add(algoritmoLista, restricciones);
+        agregarComponente(  4, 2, 1, 1 );
+        panel.add(opcion1Bot, restricciones);
+        agregarComponente(  5, 2, 1, 1  );
+        panel.add(opcion2Bot, restricciones);
+        agregarComponente(  6, 2, 1, 1  );
+        panel.add(opcion3Bot, restricciones); 
+        agregarComponente(  3, 4, 1, 1  );
+        panel.add(opcionesOrdenamiento, restricciones);
+        agregarComponente(  7, 0, 1, 1  );
+        panel.add(tenistasTabla, restricciones);
+ 
   
+        pestanas.addTab("Lista Tenistas", panel);
+       
+    }
+    
+   
+   
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	inter.setSize(1000,1000);
 	inter.setVisible(true);
-        
-        
-        
+     
     }
     
     
@@ -311,11 +306,7 @@ public class Principal extends JFrame {
     public String toString(){
         return nombre+ " , " + pais+ " , "+ edad+ " , "+ puntaje;  
     }
-    
-    
-    
-    
-   
+      
 }
 
 
