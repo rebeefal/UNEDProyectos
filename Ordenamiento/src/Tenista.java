@@ -1,5 +1,7 @@
 
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 // Clase Tenista, contiene  los atributos de los tenistas
@@ -8,11 +10,8 @@ public class Tenista  implements Comparable<Tenista> {
     
     private int edad, puntaje, tamano;
     private String nombre, pais, listaOriginal;       
-    
-  // public ArrayList<Object> lista = new ArrayList();
-    
-    
-    
+    Object[] object;
+ 
     
     public Tenista(){};
       
@@ -22,26 +21,24 @@ public class Tenista  implements Comparable<Tenista> {
         this.edad = edad;
         this.puntaje = puntaje;
     }
-    
-//    public void agregaTenista( String nombre, String pais, int edad, int puntaje){
-//        lista.add(nombre +" " +  pais + " " +  edad + " " +  puntaje);
-//        setTamano(lista.size());
-//        setListaOriginal( "Nombre  " + "  Pais   " + "  Edad  " + "  Puntaje  " + " \n " );
-//    }
-//    
-//    public void leeListaTenista(){ 
-//         for(int j=0; j < getTamano(); j++){
-//              setListaOriginal( listaOriginal + lista.get(j));                                        
-//            }  
-//    }
-    
-    
-    
-
-    
-    
-    
   
+    public Object[] cambiaArrayListAObject(ArrayList arreglo){
+  
+      //(arreglo.get(1)).getNombre();
+
+       return object;
+    }
+    
+    
+            
+    public Object[] getObject(){
+        return object;
+    }
+    public void setObject (Object[] object){
+        this.object = object;
+    }
+            
+
     public String getListaOriginal(){
     return listaOriginal;
     }

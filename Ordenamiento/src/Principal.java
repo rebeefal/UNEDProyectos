@@ -58,35 +58,23 @@ public class Principal extends JFrame {
         
         JList algoritmoLista;
         JLabel algoritmoListaEtiqueta;        
-        JLabel opcionesOrdenamiento; 
+    
+        JLabel opcionesOrdenamientoOpcion1;
+        JLabel opcionesOrdenamientoOpcion2;
+        JLabel opcionesOrdenamientoOpcion3;
         
+        int i =0;
+         int j =0;
         
-        JTable tenistasTabla;
-        String[] nombreColumnas = {"Nombre",
-                        "Pais",
-                        "Edad",
-                        "Puntaje"};
+        JTable tenistasTabla; 
       
-        String[] data; 
-        
-        
-         
+
         JTextArea listaOriginal;
         
      
         private GridBagLayout esquema;
         private GridBagConstraints restricciones;
      
-        
-        //Tenista tenistas = new Tenista();
-        
-        
-        
-        
-        
-        
-        
-        
 
     
     public Principal (){
@@ -98,7 +86,7 @@ public class Principal extends JFrame {
     
         
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(208,171,171));
+       // panel.setBackground(new Color(208,171,171));
 
 
         GridBagLayout esquema = new GridBagLayout();
@@ -170,27 +158,30 @@ public class Principal extends JFrame {
         algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
         algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
         algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+   
+        opcionesOrdenamientoOpcion1 = new JLabel("Opcion 1. Mostrar tenistas ordenados en forma descendente según puntaje \n");
+        opcionesOrdenamientoOpcion2 = new JLabel("Opcion 2. Mostrar tenistas ordenados en forma ascendente según edad. \n ");      
+        opcionesOrdenamientoOpcion3 = new JLabel("Opcion 3. Mostrar tenistas ordenados alfabéticamente en forma ascendente según su país. \n ");
+
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
         
+        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
         
-        opcionesOrdenamiento = new JLabel(" Opcion 1. Mostrar tenistas ordenados en forma descendente según puntaje \n "
-                + "Opcion 2. Mostrar tenistas ordenados en forma ascendente según edad. \n"
-                + "Opcion 3. Mostrar tenistas ordenados alfabéticamente en forma ascendente según su país.");
+        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
+        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
+        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
+        
+
+        Object[] nombreColumnas = {"Nombre", "Pais","Edad","Puntaje"};
+        
  
-        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
-        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
-        
-        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
-        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
-        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
-        
-        algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
-        algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
-        algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
-        
-        
         ArrayList<Tenista> listaTenistas = new ArrayList<Tenista>();
         
- 
+       Object objectParaTabla[][] =new Object[4][15];
+        
         agregarBot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
@@ -203,20 +194,32 @@ public class Principal extends JFrame {
                     edad = Integer.parseInt(edadTex.getText());
                     puntaje = Integer.parseInt(puntajeTex.getText());     
                       
-                    //arrayTenista[i++] = new Tenista(nombre, pais, edad, puntaje);
-                    
-
-                    //crea un obeto de tipo tenista cada vez que preciona el boton agregar
-                    Tenista tenista = new Tenista(nombre, pais, edad, puntaje);    
-                    
-                    //El tenista que se ha agregado se coloca en la lista ArrayList, como se ha definido fuera del ActionListener debe de recordar los elementos agregados anteriormente
-                    listaTenistas.add(tenista);
-                 
-                    
+                   Tenista tenista = new Tenista(nombre, pais,edad,puntaje);
+                                 
+                   listaTenistas.add(tenista);
+  
                    
-                   // tenistasTabla = new JTable(listaTenistas, nombreColumnas);
-                    
-               
+                   for (; i<4; i++){  
+                      for (; j<listaTenistas.size(); j++){  
+                        if (i == 0){
+                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getNombre();
+                        }  if (i == 1){
+                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getPais();
+                        }if (i == 2){
+                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getEdad();
+                        }if (i == 4){
+                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getPuntaje();
+                        }    
+                      } 
+                   }
+
+                  // tenista.cambiaArrayListAObject(listaTenistas);
+                   
+                  tenistasTabla = new JTable(objectParaTabla,nombreColumnas );
+                   
+                   
+                   
+ 
                 x=2;
                                                    
                 }catch(NumberFormatException numberFormatException ){
@@ -259,37 +262,42 @@ public class Principal extends JFrame {
         panel.add(puntajeEti, restricciones);
         agregarComponente(  1, 3, 1, 1  );
         panel.add(puntajeTex, restricciones);
-        agregarComponente(  0, 4, 1, 1 );
+        agregarComponente(  4, 0, 1, 1 );
         panel.add(agregarBot, restricciones); 
-        agregarComponente(  3, 0, 1, 1  );
+        agregarComponente(  5, 1, 1, 1  );
         panel.add(algoritmoListaEtiqueta, restricciones);
-        agregarComponente(  4, 0, 1, 1  );
+        agregarComponente(  6, 1, 1, 1  );
         panel.add(algoritmoLista, restricciones);
-        agregarComponente(  4, 2, 1, 1 );
+        agregarComponente(  4, 3, 1, 1 );
         panel.add(opcion1Bot, restricciones);
-        agregarComponente(  5, 2, 1, 1  );
+        agregarComponente(  5, 3, 1, 1  );
         panel.add(opcion2Bot, restricciones);
-        agregarComponente(  6, 2, 1, 1  );
+        agregarComponente(  6, 3, 1, 1  );
         panel.add(opcion3Bot, restricciones); 
-        agregarComponente(  3, 4, 1, 1  );
-        panel.add(opcionesOrdenamiento, restricciones);
-        agregarComponente(  7, 0, 1, 1  );
+        agregarComponente(  4, 5, 1, 1  );
+        panel.add(opcionesOrdenamientoOpcion1, restricciones);
+        agregarComponente(  5, 5, 1, 1  );
+        panel.add(opcionesOrdenamientoOpcion2, restricciones);
+        agregarComponente(  6, 5, 1, 1  );
+        panel.add(opcionesOrdenamientoOpcion3, restricciones);
+        agregarComponente(  0, 0, 1, 1  );
         panel.add(tenistasTabla, restricciones);
  
   
         pestanas.addTab("Lista Tenistas", panel);
        
     }
-    
-   
-   
+
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	inter.setSize(1000,1000);
+	inter.setSize(1200,700);
 	inter.setVisible(true);
      
     }
+    
+    
+    
     
     
     private void agregarComponente( 
