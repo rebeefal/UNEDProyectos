@@ -22,14 +22,7 @@ public class Tenista  implements Comparable<Tenista> {
         this.puntaje = puntaje;
     }
   
-    public Object[] cambiaArrayListAObject(ArrayList arreglo){
-  
-      //(arreglo.get(1)).getNombre();
-
-       return object;
-    }
-    
-    
+   
             
     public Object[] getObject(){
         return object;

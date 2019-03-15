@@ -63,13 +63,10 @@ public class Principal extends JFrame {
         JLabel opcionesOrdenamientoOpcion2;
         JLabel opcionesOrdenamientoOpcion3;
         
-        int i =0;
-         int j =0;
+       
         
         JTable tenistasTabla; 
       
-
-        JTextArea listaOriginal;
         
      
         private GridBagLayout esquema;
@@ -141,10 +138,7 @@ public class Principal extends JFrame {
         opcion3Bot.setPreferredSize(new Dimension(90, 30));
 	opcion3Bot.setBackground(new Color(170,175,182));
         
-        
-        listaOriginal = new JTextArea();
-        listaOriginal.setSize(30, 30);
-        
+
         
         String algoritmoOrdenamiento[] = {"Shellsort", "Quicksort"};
         algoritmoLista = new JList(algoritmoOrdenamiento);
@@ -173,14 +167,12 @@ public class Principal extends JFrame {
         algoritmoListaEtiqueta = new JLabel("Algoritmos disponibles");
         algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
         algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
-        
 
-        Object[] nombreColumnas = {"Nombre", "Pais","Edad","Puntaje"};
+        CreadorDeObjectParaTable creadorDeObjectParaTable = new CreadorDeObjectParaTable();
+        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+       
+        tenistasTabla = new JTable(15,4);
         
- 
-        ArrayList<Tenista> listaTenistas = new ArrayList<Tenista>();
-        
-       Object objectParaTabla[][] =new Object[4][15];
         
         agregarBot.addActionListener(new ActionListener(){
     
@@ -193,33 +185,14 @@ public class Principal extends JFrame {
                     pais = paisTex.getText();
                     edad = Integer.parseInt(edadTex.getText());
                     puntaje = Integer.parseInt(puntajeTex.getText());     
-                      
-                   Tenista tenista = new Tenista(nombre, pais,edad,puntaje);
-                                 
-                   listaTenistas.add(tenista);
-  
-                   
-                   for (; i<4; i++){  
-                      for (; j<listaTenistas.size(); j++){  
-                        if (i == 0){
-                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getNombre();
-                        }  if (i == 1){
-                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getPais();
-                        }if (i == 2){
-                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getEdad();
-                        }if (i == 4){
-                        objectParaTabla[i][j]  = (listaTenistas.get(j)).getPuntaje();
-                        }    
-                      } 
-                   }
+                  
+                    // creo un tenista 
+                    
+                    Tenista tenista = new Tenista(nombre,pais,edad,puntaje);
+                    
+                    // agrego al tenista a la lista por medio de la funcion
+                    creadorDeObjectParaTable.agregarTenistaALista(tenista);
 
-                  // tenista.cambiaArrayListAObject(listaTenistas);
-                   
-                  tenistasTabla = new JTable(objectParaTabla,nombreColumnas );
-                   
-                   
-                   
- 
                 x=2;
                                                    
                 }catch(NumberFormatException numberFormatException ){
@@ -237,11 +210,12 @@ public class Principal extends JFrame {
         });
         
            
-        listaOriginalBot.addActionListener(new ActionListener(){
+        opcion1Bot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
                 
-               // listaTenistasTabla = new JTable (arregloTenistas, nombreColumnas);
+               creadorDeObjectParaTable.cambiaArrayListAObject();
+               tenistasTabla = new JTable(creadorDeObjectParaTable.cambiaArrayListAObject(), nombreColumnas);
          }
         });
         
@@ -274,13 +248,13 @@ public class Principal extends JFrame {
         panel.add(opcion2Bot, restricciones);
         agregarComponente(  6, 3, 1, 1  );
         panel.add(opcion3Bot, restricciones); 
-        agregarComponente(  4, 5, 1, 1  );
-        panel.add(opcionesOrdenamientoOpcion1, restricciones);
-        agregarComponente(  5, 5, 1, 1  );
-        panel.add(opcionesOrdenamientoOpcion2, restricciones);
-        agregarComponente(  6, 5, 1, 1  );
-        panel.add(opcionesOrdenamientoOpcion3, restricciones);
-        agregarComponente(  0, 0, 1, 1  );
+//        agregarComponente(  4, 5, 1, 1  );
+//        panel.add(opcionesOrdenamientoOpcion1, restricciones);
+//        agregarComponente(  5, 5, 1, 1  );
+//        panel.add(opcionesOrdenamientoOpcion2, restricciones);
+//        agregarComponente(  6, 5, 1, 1  );
+//        panel.add(opcionesOrdenamientoOpcion3, restricciones);
+        agregarComponente(  7, 5, 1, 1  );
         panel.add(tenistasTabla, restricciones);
  
   
@@ -291,7 +265,7 @@ public class Principal extends JFrame {
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	inter.setSize(1200,700);
+	inter.setSize(1200,1000);
 	inter.setVisible(true);
      
     }
