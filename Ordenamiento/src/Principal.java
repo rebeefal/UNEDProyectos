@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Principal extends JFrame {
     
@@ -69,27 +71,40 @@ public class Principal extends JFrame {
       
         
      
-        private GridBagLayout esquema;
-        private GridBagConstraints restricciones;
-     
+        //private GridBagLayout esquema;
+        //private GridBagConstraints restricciones;
+        
+        private GroupLayout layout;
 
     
     public Principal (){
         //Dentro de este constructor se van a crear los elementos del GUI    
 
         
+        
+        
+        
+        
+        
+        
         JTabbedPane pestanas = new JTabbedPane();
         add(pestanas);
     
         
         JPanel panel = new JPanel();
-       // panel.setBackground(new Color(208,171,171));
+        //panel.setBackground(new Color(208,171,171));
+        
+        layout = new GroupLayout(panel);
+        panel.setLayout(layout);
+        
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
-
-        GridBagLayout esquema = new GridBagLayout();
-        esquema.getLayoutOrigin();
-        restricciones = new GridBagConstraints();
-	panel.setLayout(esquema);
+        //GridBagLayout esquema = new GridBagLayout();
+        //esquema.getLayoutOrigin();
+        //restricciones = new GridBagConstraints();
+        
+	//panel.setLayout(esquema);
         
         
         nombreEti = new JLabel( "Nombre");
@@ -169,9 +184,17 @@ public class Principal extends JFrame {
         algoritmoListaEtiqueta.setForeground(new Color(77,66,74));
 
         CreadorDeObjectParaTable creadorDeObjectParaTable = new CreadorDeObjectParaTable();
-        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+        
        
-        tenistasTabla = new JTable(15,4);
+       
+        tenistasTabla = new JTable();
+ 
+        TableModel modelo = new DefaultTableModel();
+         
+        
+        
+        
+        
         
         
         agregarBot.addActionListener(new ActionListener(){
@@ -206,56 +229,124 @@ public class Principal extends JFrame {
                 }  
                               
             }while (x==1);                          
-            }   
-        });
+            }          
+       });     
         
-           
         opcion1Bot.addActionListener(new ActionListener(){
     
             public void actionPerformed (ActionEvent arg0){
                 
                creadorDeObjectParaTable.cambiaArrayListAObject();
-               tenistasTabla = new JTable(creadorDeObjectParaTable.cambiaArrayListAObject(), nombreColumnas);
-         }
+ 
+               Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+               
+               TableModel modelo = new DefaultTableModel(
+                       creadorDeObjectParaTable.cambiaArrayListAObject(), 
+                       nombreColumnas);
+               
+               tenistasTabla.setModel(modelo);
+         }     
         });
         
+        
+        layout.setHorizontalGroup(
+            layout.createSequentialGroup()
+            .addComponent(nombreEti)
+            .addComponent(paisEti)
+            .addComponent(edadEti)
+            .addComponent(puntajeEti)         
+                    
+//                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                   .addComponent(nombreTex)
+//                   .addComponent(paisTex)
+//                   .addComponent(edadTex)
+//                   .addComponent(puntajeTex))       
+        );
+        
+//        layout.setHorizontalGroup(
+//            layout.createSequentialGroup()
+//            .addComponent(nombreTex)
+//            .addComponent(paisTex)
+//            .addComponent(edadTex)
+//            .addComponent(puntajeTex)         
+//                    
+////                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+////                   .addComponent(nombreTex)
+////                   .addComponent(paisTex)
+////                   .addComponent(edadTex)
+////                   .addComponent(puntajeTex))       
+//        );
+        
+        
+        
+        layout.setVerticalGroup(
+            layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+               .addComponent(nombreEti)
+               .addComponent(paisEti)
+               .addComponent(edadEti)
+               .addComponent(puntajeEti))
+                    
+                    
+//            .addComponent(nombreTex)
+//            .addComponent(paisTex)
+//            .addComponent(edadTex)
+//            .addComponent(puntajeTex)
+        );
+        
+//        layout.setVerticalGroup(
+//            layout.createSequentialGroup()
+//            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+//                .addComponent(nombreTex)
+//                .addComponent(paisTex)
+//                .addComponent(edadTex)
+//                .addComponent(puntajeTex) )
+//                    
+//                    
+////            .addComponent(nombreTex)
+////            .addComponent(paisTex)
+////            .addComponent(edadTex)
+////            .addComponent(puntajeTex)
+//        );
+        
+        
           
-        agregarComponente(  0, 0, 1, 1 );
-        panel.add(nombreEti, restricciones);
-        agregarComponente( 1 , 0, 1, 1 );
-        panel.add(nombreTex, restricciones);
-        agregarComponente(  0, 1, 1, 1 );
-        panel.add(paisEti, restricciones);
-        agregarComponente(  1, 1, 1, 1  );
-        panel.add(paisTex, restricciones);
-        agregarComponente(  0, 2, 1, 1  );
-        panel.add(edadEti, restricciones);
-        agregarComponente(  1, 2, 1, 1 );
-        panel.add(edadTex, restricciones);
-        agregarComponente(  0, 3, 1, 1 );
-        panel.add(puntajeEti, restricciones);
-        agregarComponente(  1, 3, 1, 1  );
-        panel.add(puntajeTex, restricciones);
-        agregarComponente(  4, 0, 1, 1 );
-        panel.add(agregarBot, restricciones); 
-        agregarComponente(  5, 1, 1, 1  );
-        panel.add(algoritmoListaEtiqueta, restricciones);
-        agregarComponente(  6, 1, 1, 1  );
-        panel.add(algoritmoLista, restricciones);
-        agregarComponente(  4, 3, 1, 1 );
-        panel.add(opcion1Bot, restricciones);
-        agregarComponente(  5, 3, 1, 1  );
-        panel.add(opcion2Bot, restricciones);
-        agregarComponente(  6, 3, 1, 1  );
-        panel.add(opcion3Bot, restricciones); 
-//        agregarComponente(  4, 5, 1, 1  );
-//        panel.add(opcionesOrdenamientoOpcion1, restricciones);
-//        agregarComponente(  5, 5, 1, 1  );
-//        panel.add(opcionesOrdenamientoOpcion2, restricciones);
-//        agregarComponente(  6, 5, 1, 1  );
-//        panel.add(opcionesOrdenamientoOpcion3, restricciones);
-        agregarComponente(  7, 5, 1, 1  );
-        panel.add(tenistasTabla, restricciones);
+//        agregarComponente(  0, 0, 1, 1 );
+//        panel.add(nombreEti, restricciones);
+//        agregarComponente( 1 , 0, 1, 1 );
+//        panel.add(nombreTex, restricciones);
+//        agregarComponente(  0, 1, 1, 1 );
+//        panel.add(paisEti, restricciones);
+//        agregarComponente(  1, 1, 1, 1  );
+//        panel.add(paisTex, restricciones);
+//        agregarComponente(  0, 2, 1, 1  );
+//        panel.add(edadEti, restricciones);
+//        agregarComponente(  1, 2, 1, 1 );
+//        panel.add(edadTex, restricciones);
+//        agregarComponente(  0, 3, 1, 1 );
+//        panel.add(puntajeEti, restricciones);
+//        agregarComponente(  1, 3, 1, 1  );
+//        panel.add(puntajeTex, restricciones);
+//        agregarComponente(  4, 0, 1, 1 );
+//        panel.add(agregarBot, restricciones); 
+//        agregarComponente(  5, 1, 1, 1  );
+//        panel.add(algoritmoListaEtiqueta, restricciones);
+//        agregarComponente(  6, 1, 1, 1  );
+//        panel.add(algoritmoLista, restricciones);
+//        agregarComponente(  4, 3, 1, 1 );
+//        panel.add(opcion1Bot, restricciones);
+//        agregarComponente(  5, 3, 1, 1  );
+//        panel.add(opcion2Bot, restricciones);
+//        agregarComponente(  6, 3, 1, 1  );
+//        panel.add(opcion3Bot, restricciones); 
+////        agregarComponente(  4, 5, 1, 1  );
+////        panel.add(opcionesOrdenamientoOpcion1, restricciones);
+////        agregarComponente(  5, 5, 1, 1  );
+////        panel.add(opcionesOrdenamientoOpcion2, restricciones);
+////        agregarComponente(  6, 5, 1, 1  );
+////        panel.add(opcionesOrdenamientoOpcion3, restricciones);
+//        agregarComponente(  1, 5, 15, 1  );
+//        panel.add(tenistasTabla, restricciones);
  
   
         pestanas.addTab("Lista Tenistas", panel);
@@ -265,23 +356,20 @@ public class Principal extends JFrame {
     public static void main (String[] args ){
         Principal inter = new Principal();		
 	inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	inter.setSize(1200,1000);
+	inter.setSize(1000,1000);
 	inter.setVisible(true);
      
     }
     
-    
-    
-    
-    
-    private void agregarComponente( 
-        int fila, int columna, int anchura, int altura )
-         {
-         restricciones.gridx = columna; // establece gridx
-         restricciones.gridy = fila; // establece gridy
-         restricciones.gridwidth = anchura; // establece gridwidth
-         restricciones.gridheight = altura; // establece gridheight
-         }
+
+//    private void agregarComponente( 
+//        int fila, int columna, int anchura, int altura )
+//         {
+//         restricciones.gridx = columna; // establece gridx
+//         restricciones.gridy = fila; // establece gridy
+//         restricciones.gridwidth = anchura; // establece gridwidth
+//         restricciones.gridheight = altura; // establece gridheight
+//         }
 	  
     
     @Override
