@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -50,9 +52,9 @@ public class Principal extends JFrame {
 
     // Estos botones se utilizan para elegir el algoritmo de ordenamiento que va a ser utilizado
     JButton listaOriginalBot;
-    JButton opcion1Bot;
-    JButton opcion2Bot;
-    JButton opcion3Bot;
+    JButton ordenPorEdad;
+    JButton ordenPorPuntaje;
+    JButton ordenPorPais;
 
     JList algoritmoLista;
     JLabel algoritmoListaEtiqueta;
@@ -64,6 +66,10 @@ public class Principal extends JFrame {
     JTable tenistasTabla;
     
     JScrollPane jScrollPane1;
+    JRadioButton shellsortButton;
+    JRadioButton insercionButton;
+    ButtonGroup seleccionAlgoritmo;
+    
 
     private GroupLayout jPanel1Layout;
 
@@ -116,17 +122,18 @@ public class Principal extends JFrame {
         listaOriginalBot.setPreferredSize(new Dimension(90, 30));
         listaOriginalBot.setBackground(new Color(170, 175, 182));
 
-        opcion1Bot = new JButton("Opcion 1");
-        opcion1Bot.setPreferredSize(new Dimension(90, 30));
-        opcion1Bot.setBackground(new Color(170, 175, 182));
+        ordenPorEdad = new JButton(" - a + Edad");
+        ordenPorEdad.setPreferredSize(new Dimension(90, 30));
+        ordenPorEdad.setBackground(new Color(170, 175, 182));
 
-        opcion2Bot = new JButton("Opcion 2");
-        opcion2Bot.setPreferredSize(new Dimension(90, 30));
-        opcion2Bot.setBackground(new Color(170, 175, 182));
-
-        opcion3Bot = new JButton("Opcion 3");
-        opcion3Bot.setPreferredSize(new Dimension(90, 30));
-        opcion3Bot.setBackground(new Color(170, 175, 182));
+        ordenPorPuntaje = new JButton("+ a - Puntaje");
+        ordenPorPuntaje.setPreferredSize(new Dimension(90, 30));
+        ordenPorPuntaje.setBackground(new Color(170, 175, 182));
+        
+        ordenPorPais = new JButton("Alfabeticamente Pais");
+        ordenPorPais.setPreferredSize(new Dimension(90, 30));
+        ordenPorPais.setBackground(new Color(170, 175, 182));
+      
 
         String algoritmoOrdenamiento[] = {"Shellsort", "Quicksort"};
         algoritmoLista = new JList(algoritmoOrdenamiento);
@@ -156,6 +163,17 @@ public class Principal extends JFrame {
         algoritmoListaEtiqueta.setFont(new Font("Arial", Font.BOLD, 12));
         algoritmoListaEtiqueta.setForeground(new Color(77, 66, 74));
 
+        
+        // botones para escoger el algoritmo que se va a utilizar para ordenar la lista. 
+         seleccionAlgoritmo = new ButtonGroup();
+
+        shellsortButton = new JRadioButton("Shellsort");
+        insercionButton = new JRadioButton("Insercion");
+
+        seleccionAlgoritmo.add(shellsortButton);
+        seleccionAlgoritmo.add(insercionButton);
+        
+
         CreadorDeObjectParaTable creadorDeObjectParaTable = new CreadorDeObjectParaTable();
 
         jScrollPane1 = new JScrollPane();
@@ -166,7 +184,7 @@ public class Principal extends JFrame {
         TableModel modelo = new DefaultTableModel();
 
         agregarBot.addActionListener(new ActionListener() {
-
+    
             public void actionPerformed(ActionEvent arg0) {
 
                 do {
@@ -198,9 +216,8 @@ public class Principal extends JFrame {
                 } while (x == 1);
             }
         });
-
        
-        opcion1Bot.addActionListener(new ActionListener() {
+        listaOriginalBot.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
 
@@ -210,9 +227,12 @@ public class Principal extends JFrame {
 
                        creadorDeObjectParaTable.cambiaArrayListAObject();
                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                       creadorDeObjectParaTable.cambiaArrayListAObject();
                        TableModel modelo = new DefaultTableModel(
-                               creadorDeObjectParaTable.cambiaArrayListAObject(),
+                               creadorDeObjectParaTable.getObjectParaTablaOriginal(),
                                nombreColumnas);
+                       
+                       
                        tenistasTabla.setModel(modelo); 
 
                        x=2;
@@ -224,6 +244,149 @@ public class Principal extends JFrame {
                 }while(x==0);
             }
         });
+        
+        // ordena shellsort
+        ordenPorEdad.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+
+                do {
+                
+                    try {
+
+                        // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
+                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
+                        OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
+                        ordenadorShellsort.OrdenarShellsortEdad(creadorDeObjectParaTable.getListaTenistas());
+
+
+                        ordenadorShellsort.cambiaArrayListAObject();
+                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                        TableModel modelo = new DefaultTableModel(
+                                creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                nombreColumnas);
+
+                        tenistasTabla.setModel(modelo); 
+                        
+                         // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
+                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                           
+                            OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
+                            ordenadorPorInsercion.OrdenarPorInsercionEdad(creadorDeObjectParaTable.getListaTenistas());
+
+                            ordenadorPorInsercion.cambiaArrayListAObject();
+                            Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                            TableModel modelo = new DefaultTableModel(
+                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    nombreColumnas);
+                       
+                       tenistasTabla.setModel(modelo); 
+                       
+                       }
+
+                       x=2;
+                   }catch(IndexOutOfBoundsException indexOutOfBoundsException) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "Ha ingresado menos de 15 tenistas");
+                   }                               
+                }while(x==0);
+            }
+        });
+        
+         // ordena por insercion
+        ordenPorPuntaje.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+
+                do {               
+                    try {
+                       // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
+                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
+                        OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
+                        ordenadorShellsort.OrdenarShellsortPuntaje(creadorDeObjectParaTable.getListaTenistas());
+
+
+                        ordenadorShellsort.cambiaArrayListAObject();
+                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                        TableModel modelo = new DefaultTableModel(
+                                creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                nombreColumnas);
+
+                        tenistasTabla.setModel(modelo); 
+                        
+                         // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
+                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                           
+                            OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
+                            ordenadorPorInsercion.OrdenarPorInsercionPuntaje(creadorDeObjectParaTable.getListaTenistas());
+
+                            ordenadorPorInsercion.cambiaArrayListAObject();
+                            Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                            TableModel modelo = new DefaultTableModel(
+                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    nombreColumnas);
+                       
+                       tenistasTabla.setModel(modelo); 
+                       
+                       }
+                       
+                       x=2;
+                   }catch(IndexOutOfBoundsException indexOutOfBoundsException) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "Ha ingresado menos de 15 tenistas");
+                   }                               
+                }while(x==0);
+            }
+        });
+        
+        
+        ordenPorPais.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+
+                do {               
+                    try {
+                       // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
+                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
+                        OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
+                        ordenadorShellsort.OrdenarShellsortPais(creadorDeObjectParaTable.getListaTenistas());
+
+
+                        ordenadorShellsort.cambiaArrayListAObject();
+                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                        TableModel modelo = new DefaultTableModel(
+                                creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                nombreColumnas);
+
+                        tenistasTabla.setModel(modelo); 
+                        
+                         // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
+                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                           
+                            OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
+                            ordenadorPorInsercion.OrdenarPorInsercionPais(creadorDeObjectParaTable.getListaTenistas());
+
+                            ordenadorPorInsercion.cambiaArrayListAObject();
+                            Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                            TableModel modelo = new DefaultTableModel(
+                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    nombreColumnas);
+                       
+                       tenistasTabla.setModel(modelo);                       
+                       }                       
+                       x=2;
+                   }catch(IndexOutOfBoundsException indexOutOfBoundsException) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "Ha ingresado menos de 15 tenistas");
+                   }                               
+                }while(x==0);
+            }
+        });
+        
+        
 
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +427,12 @@ public class Principal extends JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(opcion2Bot)
-                    .addComponent(opcion1Bot)
-                    .addComponent(opcion3Bot))
+                    .addComponent(shellsortButton)
+                    .addComponent(insercionButton)
+                    .addComponent(ordenPorEdad)
+                    .addComponent(listaOriginalBot)
+                    .addComponent(ordenPorPuntaje)
+                    .addComponent(ordenPorPais))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,12 +460,15 @@ public class Principal extends JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(opcion1Bot)
+                .addComponent(shellsortButton)
+                .addComponent(insercionButton)
+                .addComponent(listaOriginalBot)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(opcion2Bot)
+                .addComponent(ordenPorEdad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(opcion3Bot)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(ordenPorPuntaje)
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(ordenPorPais))
         );
 
         pestanas.addTab("Lista Tenistas", jPanel1);
@@ -308,9 +477,8 @@ public class Principal extends JFrame {
     public static void main(String[] args) {
         Principal inter = new Principal();
         inter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inter.setSize(1000, 500);
+        inter.setSize(800, 580);
         inter.setVisible(true);
-
     }
 
     @Override

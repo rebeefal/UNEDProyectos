@@ -6,7 +6,7 @@ import java.util.Collection;
 
 // Clase Tenista, contiene  los atributos de los tenistas
 
-public class Tenista  implements Comparable<Tenista> {
+public class Tenista { 
     
     private int edad, puntaje, tamano;
     private String nombre, pais, listaOriginal;       
@@ -70,21 +70,5 @@ public class Tenista  implements Comparable<Tenista> {
     public void setPuntaje (int puntaje){
         this.puntaje = puntaje;
     }    
-    
-    @Override
-    public String toString(){
-        return nombre+ " , " + pais+ " , "+ edad+ " , "+ puntaje;  
-    }
-    
-    @Override
-    public int compareTo(Tenista o){
-        if (edad < o.edad){
-            return -1;
-        }
-        if (edad > o.edad){
-            return 1;
-        }
-        return 0; 
-    }
-         
+      
 } 
