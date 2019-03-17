@@ -1,50 +1,19 @@
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Collection;
-
-
 // Clase Tenista, contiene  los atributos de los tenistas
-
 public class Tenista { 
     
-    private int edad, puntaje, tamano;
-    private String nombre, pais, listaOriginal;       
-    Object[] object;
- 
+    // Atributos de la clase Tenista
+    private int edad, puntaje;
+    private String nombre, pais;     
+//    Object[] object;
     
-    public Tenista(){};
-      
     public Tenista(String nombre, String pais, int edad, int puntaje){
         this.nombre = nombre;
         this.pais = pais;
         this.edad = edad;
         this.puntaje = puntaje;
     }
-  
-   
-            
-    public Object[] getObject(){
-        return object;
-    }
-    public void setObject (Object[] object){
-        this.object = object;
-    }
-            
 
-    public String getListaOriginal(){
-    return listaOriginal;
-    }
-    public void setListaOriginal (String listaOriginal){
-        this.listaOriginal = listaOriginal;
-    }
-    
-    public int getTamano(){
-    return tamano;
-    }
-    public void setTamano (int tamano){
-        this.tamano = tamano;
-    }
   
     public String getNombre(){
         return nombre;
