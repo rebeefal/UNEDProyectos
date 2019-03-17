@@ -224,15 +224,15 @@ public class Principal extends JFrame {
                 do {
                 
                     try {
-
-                       creadorDeObjectParaTable.cambiaArrayListAObject();
+                     
                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                       
                        creadorDeObjectParaTable.cambiaArrayListAObject();
+                       
                        TableModel modelo = new DefaultTableModel(
                                creadorDeObjectParaTable.getObjectParaTablaOriginal(),
                                nombreColumnas);
-                       
-                       
+         
                        tenistasTabla.setModel(modelo); 
 
                        x=2;
@@ -255,29 +255,37 @@ public class Principal extends JFrame {
                     try {
 
                         // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
-                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
+                        
+                     
+                       
+                       if (shellsortButton.isSelected()){
                         OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
                         ordenadorShellsort.OrdenarShellsortEdad(creadorDeObjectParaTable.getListaTenistas());
 
 
                         ordenadorShellsort.cambiaArrayListAObject();
+                        
                         Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                        
                         TableModel modelo = new DefaultTableModel(
-                                creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                ordenadorShellsort.cambiaArrayListAObject(),
                                 nombreColumnas);
 
                         tenistasTabla.setModel(modelo); 
                         
                          // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
-                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                       
+                           
+                       }if (insercionButton.isSelected()){
                            
                             OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
                             ordenadorPorInsercion.OrdenarPorInsercionEdad(creadorDeObjectParaTable.getListaTenistas());
 
                             ordenadorPorInsercion.cambiaArrayListAObject();
+                            
                             Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
                             TableModel modelo = new DefaultTableModel(
-                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    ordenadorPorInsercion.cambiaArrayListAObject(),
                                     nombreColumnas);
                        
                        tenistasTabla.setModel(modelo); 
@@ -302,21 +310,21 @@ public class Principal extends JFrame {
                 do {               
                     try {
                        // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
-                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
-                        OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
-                        ordenadorShellsort.OrdenarShellsortPuntaje(creadorDeObjectParaTable.getListaTenistas());
+                        if (shellsortButton.isSelected()){
+                            OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
+                            ordenadorShellsort.OrdenarShellsortPuntaje(creadorDeObjectParaTable.getListaTenistas());
 
 
-                        ordenadorShellsort.cambiaArrayListAObject();
-                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
-                        TableModel modelo = new DefaultTableModel(
-                                creadorDeObjectParaTable.cambiaArrayListAObject(),
-                                nombreColumnas);
+                            ordenadorShellsort.cambiaArrayListAObject();
+                            Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                            TableModel modelo = new DefaultTableModel(
+                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    nombreColumnas);
 
-                        tenistasTabla.setModel(modelo); 
-                        
+                            tenistasTabla.setModel(modelo); 
+
                          // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
-                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                       }if (insercionButton.isSelected()){
                            
                             OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
                             ordenadorPorInsercion.OrdenarPorInsercionPuntaje(creadorDeObjectParaTable.getListaTenistas());
@@ -327,7 +335,7 @@ public class Principal extends JFrame {
                                     creadorDeObjectParaTable.cambiaArrayListAObject(),
                                     nombreColumnas);
                        
-                       tenistasTabla.setModel(modelo); 
+                            tenistasTabla.setModel(modelo); 
                        
                        }
                        
@@ -349,9 +357,9 @@ public class Principal extends JFrame {
                 do {               
                     try {
                        // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
-                       if (seleccionAlgoritmo.getSelection() == shellsortButton){
+                        if (shellsortButton.isSelected()){
                         OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
-                        ordenadorShellsort.OrdenarShellsortPais(creadorDeObjectParaTable.getListaTenistas());
+                        //ordenadorShellsort.OrdenarShellsortPais(creadorDeObjectParaTable.getListaTenistas());
 
 
                         ordenadorShellsort.cambiaArrayListAObject();
@@ -363,10 +371,10 @@ public class Principal extends JFrame {
                         tenistasTabla.setModel(modelo); 
                         
                          // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
-                       }else if(seleccionAlgoritmo.getSelection() == insercionButton) {
+                        }if (insercionButton.isSelected()){
                            
                             OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
-                            ordenadorPorInsercion.OrdenarPorInsercionPais(creadorDeObjectParaTable.getListaTenistas());
+                            //ordenadorPorInsercion.OrdenarPorInsercionPais(creadorDeObjectParaTable.getListaTenistas());
 
                             ordenadorPorInsercion.cambiaArrayListAObject();
                             Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};

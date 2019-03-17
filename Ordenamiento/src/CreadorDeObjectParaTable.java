@@ -6,9 +6,9 @@ public class CreadorDeObjectParaTable {
     public CreadorDeObjectParaTable(){};
    int x=0;
     
-    Object objectParaTabla[][] = new Object[8][4];
+    Object objectParaTabla[][] = new Object[5][4];
     
-    Object objectParaTablaOriginal[][]=new Object[8][4];
+    Object objectParaTablaOriginal[][]=new Object[5][4];
     
     ArrayList<Tenista> listaTenistas = new ArrayList<Tenista>();
    
@@ -18,7 +18,7 @@ public class CreadorDeObjectParaTable {
   
     public Object[][] cambiaArrayListAObject(){
     
-       for (int i=0; i<8; i++){  
+       for (int i=0; i<5; i++){  
             for (int j=0; j<4; j++){  
               if (x == 0){
                 objectParaTabla[i][j]  = (listaTenistas.get(i)).getNombre();
