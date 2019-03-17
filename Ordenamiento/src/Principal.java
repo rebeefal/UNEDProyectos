@@ -358,23 +358,23 @@ public class Principal extends JFrame {
                     try {
                        // si el usuario selecciona shellsort ingresa a este if y las funciones se basan en shellsort
                         if (shellsortButton.isSelected()){
-                        OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
-                        //ordenadorShellsort.OrdenarShellsortPais(creadorDeObjectParaTable.getListaTenistas());
+                            OrdenadorShellsort ordenadorShellsort = new OrdenadorShellsort();  
+                            ordenadorShellsort.OrdenarShellsortPais(creadorDeObjectParaTable.getListaTenistas());
 
 
-                        ordenadorShellsort.cambiaArrayListAObject();
-                        Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
-                        TableModel modelo = new DefaultTableModel(
-                                creadorDeObjectParaTable.cambiaArrayListAObject(),
-                                nombreColumnas);
+                            ordenadorShellsort.cambiaArrayListAObject();
+                            Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
+                            TableModel modelo = new DefaultTableModel(
+                                    creadorDeObjectParaTable.cambiaArrayListAObject(),
+                                    nombreColumnas);
 
-                        tenistasTabla.setModel(modelo); 
-                        
+                            tenistasTabla.setModel(modelo); 
+
                          // si el usuario selecciona insercion ingresa a este if y las funciones se basan en insercion
                         }if (insercionButton.isSelected()){
                            
                             OrdenadorPorInsercion ordenadorPorInsercion = new OrdenadorPorInsercion();  
-                            //ordenadorPorInsercion.OrdenarPorInsercionPais(creadorDeObjectParaTable.getListaTenistas());
+                            ordenadorPorInsercion.OrdenarPorInsercionPais(creadorDeObjectParaTable.getListaTenistas());
 
                             ordenadorPorInsercion.cambiaArrayListAObject();
                             Object[] nombreColumnas = {"Nombre", "Pais", "Edad", "Puntaje"};
@@ -393,8 +393,6 @@ public class Principal extends JFrame {
                 }while(x==0);
             }
         });
-        
-        
 
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

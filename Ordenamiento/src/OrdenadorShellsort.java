@@ -9,85 +9,68 @@ public class OrdenadorShellsort{
     int x=0;
     
     ArrayList<Tenista> listaTenistasOrdenada;
-    
-    
+   
     public ArrayList OrdenarShellsortEdad ( ArrayList<Tenista> listaTenistas){
-        
         
             for (int gap =(listaTenistas.size()/2); gap > 0; gap = gap ==2?1:(int)(gap/2.2)){
                 for (int i=gap; i<listaTenistas.size();i++){
-
                     int tmp = ((listaTenistas.get(i)).getEdad());                   
-                    Tenista temporal = listaTenistas.get(i);                   
-                    
-                    //System.out.print((listaTenistas.get(i))+"\n");
+                    Tenista temporal = listaTenistas.get(i);                                    
                     int j;
-                    for (j=i; j >= gap && (((listaTenistas.get(i-gap)).getEdad())) > tmp; j -=gap){                        
-                           listaTenistas.set(j,(listaTenistas.get(j-gap)));
-                    }                         
-                
+                    for (j=i; j >= gap && (((listaTenistas.get(i-gap)).getEdad())) < tmp; j -=gap){                        
+                           listaTenistas.set(j,(listaTenistas.get(j-gap))); 
+                    }                             
                     listaTenistas.set(j, temporal);
-       
-                }
-            }           
-            listaTenistasOrdenada = listaTenistas;           
-            return listaTenistasOrdenada; // lista ordenada
-        }
-    
-    public ArrayList OrdenarShellsortPuntaje ( ArrayList<Tenista> listaTenistas){           
-            for (int gap =(listaTenistas.size()/2); gap > 0; gap = gap ==2?1:(int)(gap/2.2)){  
-                for (int i=gap; i<listaTenistas.size();i++){
-
-                    int tmp = ((listaTenistas.get(i)).getPuntaje());
-                    //System.out.print((listaTenistas.get(i))+"\n");
-                    int j=i;
-                    for (; j >= gap &&  (((listaTenistas.get(i-gap)).getPuntaje())) > tmp; j -=gap){
-  
-                           listaTenistas.set(j,(listaTenistas.get(j-gap)));
-                           
-                            //System.out.print( "Entro al for \n");
-                    }
-                    listaTenistas.set(j, (listaTenistas.get(i)));
                 }
             }           
             listaTenistasOrdenada = listaTenistas;           
             return listaTenistasOrdenada; // lista ordenada
     }
-//     public ArrayList OrdenarShellsortPais ( ArrayList<Tenista> listaTenistas){           
-//            for (int gap =(listaTenistas.size()/2); gap > 0; gap = gap ==2?1:(int)(gap/2.2)){  
-//                for (int i=gap; i<listaTenistas.size();i++){
-//
-//                    int tmp = ((listaTenistas.get(i)).getPais());
-//                    //System.out.print((listaTenistas.get(i))+"\n");
-//                    int j=i;
-//                    for (; j >= gap &&  (((listaTenistas.get(i-gap)).getPais())) > tmp; j -=gap){
-//  
-//                           listaTenistas.set(j,(listaTenistas.get(j-gap)));
-//                           
-//                            //System.out.print( "Entro al for \n");
-//                    }
-//                    listaTenistas.set(j, (listaTenistas.get(i)));
-//                }
-//            }           
-//            listaTenistasOrdenada = listaTenistas;           
-//            return listaTenistasOrdenada; // lista ordenada
-//    }
     
+    public ArrayList OrdenarShellsortPuntaje ( ArrayList<Tenista> listaTenistas){           
+            for (int gap =(listaTenistas.size()/2); gap > 0; gap = gap ==2?1:(int)(gap/2.2)){  
+                for (int i=gap; i<listaTenistas.size();i++){
+                    int tmp = ((listaTenistas.get(i)).getPuntaje());
+                    Tenista temporal = listaTenistas.get(i);
+               
+                    int j=i;
+                    for (; j >= gap &&  (((listaTenistas.get(i-gap)).getPuntaje())) > tmp; j -=gap){
+  
+                           listaTenistas.set(j,(listaTenistas.get(j-gap)));
+                    }
+                    listaTenistas.set(j, temporal);
+                }
+            }           
+            listaTenistasOrdenada = listaTenistas;           
+            return listaTenistasOrdenada; // lista ordenada
+    }
    
     
     
+     public ArrayList OrdenarShellsortPais ( ArrayList<Tenista> listaTenistas){           
+            for (int gap =(listaTenistas.size()/2); gap > 0; gap = gap ==2?1:(int)(gap/2.2)){  
+                for (int i=gap; i<listaTenistas.size();i++){
+                    int tmp = ConvertidoStringPaisAscii(((listaTenistas.get(i)).getPais())); 
+                    Tenista temporal = listaTenistas.get(i);
+                    int j=i;
+                    for (; j >= gap &&  ConvertidoStringPaisAscii(((listaTenistas.get(i-gap)).getPais())) > tmp; j -=gap){
+  
+                           listaTenistas.set(j,(listaTenistas.get(j-gap)));   
+                    }
+                    listaTenistas.set(j,temporal);
+                }
+            }           
+            listaTenistasOrdenada = listaTenistas;           
+            return listaTenistasOrdenada; // lista ordenada
+    }
+ 
+    public int ConvertidoStringPaisAscii(String nombrePais){        
+            char[] letras = (nombrePais).toCharArray();
+            int primeraLetraValorAscii = Character.getNumericValue(letras[0]);
+        return primeraLetraValorAscii;      
+    }
+    
         public Object[][] cambiaArrayListAObject(){
-           //public void cambiaArrayListAObject(){
-
-//            for (int i=0; i<5; i++){  
-//  
-//                      System.out.print(listaTenistasOrdenada.get(i) 
-//                              +  "  " +listaTenistasOrdenada.get(i).getNombre()
-//                              +  "  " +listaTenistasOrdenada.get(i).getPais()
-//                              +  "  " +listaTenistasOrdenada.get(i).getEdad()
-//                              +  "  " +listaTenistasOrdenada.get(i).getPuntaje()  
-//                              + "\n ");
-//                  }
 
               for (int i=0; i<5; i++){  
                    for (int j=0; j<4; j++){                
